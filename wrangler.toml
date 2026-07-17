@@ -1,0 +1,21 @@
+name = "unseen-demo"
+main = "worker/index.ts"
+compatibility_date = "2024-12-01"
+assets = { directory = "./dist", binding = "ASSETS" }
+
+# Add generated IDs in the Cloudflare dashboard, not source control.
+[[d1_databases]]
+binding = "DB"
+database_name = "unseen-demo"
+database_id = "REPLACE_IN_CLOUDFLARE_DASHBOARD"
+
+[ai]
+binding = "AI"
+
+[[vectorize]]
+binding = "VECTOR_INDEX"
+index_name = "unseen-signals"
+
+[vars]
+UNSEEN_MODE = "deterministic"
+AI_MODEL = "@cf/meta/llama-3.1-8b-instruct"
