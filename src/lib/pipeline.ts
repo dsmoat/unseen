@@ -7,7 +7,7 @@ const groups = <T>(xs: T[], key: (x: T) => string) =>
 export const reconstructThreads = (messages: Message[]) =>
   Object.values(groups(messages, (m) => m.threadId)).map((ms) => ({
     id: ms![0].threadId,
-    messages: ms!.toSorted((a, b) => a.sentAt.localeCompare(b.sentAt)),
+    messages: [...ms!].sort((a, b) => a.sentAt.localeCompare(b.sentAt)),
     participants: [
       ...new Set(
         ms!.flatMap((m) => [

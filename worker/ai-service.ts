@@ -19,26 +19,26 @@ export interface IntelligenceService {
   generateExperiment(o: Opportunity, a: unknown[]): Promise<unknown>;
 }
 export class DeterministicService implements IntelligenceService {
-  async extractSignals() {
+  async extractSignals(_m: Message[]): Promise<unknown[]> {
     return signals;
   }
-  async extractClaims() {
+  async extractClaims(_m: Message[]) {
     return claims;
   }
-  async resolveEntities() {
+  async resolveEntities(_s: unknown[], _p: unknown[]) {
     return [];
   }
-  async generateOpportunity() {
+  async generateOpportunity(_p: unknown, _c: unknown[]) {
     return opportunities;
   }
-  async generateValidationQuestions() {
+  async generateValidationQuestions(_o: Opportunity) {
     return [
       "Is the problem top-three urgent?",
       "Who owns a pilot?",
       "What evidence would invalidate this hypothesis?",
     ];
   }
-  async generateExperiment(o: Opportunity) {
+  async generateExperiment(o: Opportunity, _a: unknown[]) {
     return {
       opportunityId: o.id,
       method: "Five interviews followed by a limited concierge pilot",
@@ -53,7 +53,7 @@ export class WorkersAIService extends DeterministicService {
   ) {
     super();
   }
-  private async structured(prompt: string) {
+  private async structured(prompt: string): Promise<unknown[]> {
     const safe = prompt.slice(0, 24000);
     for (let attempt = 0; attempt < 2; attempt++) {
       try {
@@ -75,7 +75,7 @@ export class WorkersAIService extends DeterministicService {
     }
     throw new Error("AI_OUTPUT_INVALID");
   }
-  async extractSignals(m: Message[]) {
+  async extractSignals(m: Message[]): Promise<unknown[]> {
     return this.structured(
       JSON.stringify(m.map((x) => ({ id: x.id, content: x.content }))),
     );
