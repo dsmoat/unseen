@@ -19,26 +19,26 @@ export interface IntelligenceService {
   generateExperiment(o: Opportunity, a: unknown[]): Promise<unknown>;
 }
 export class DeterministicService implements IntelligenceService {
-  async extractSignals() {
+  async extractSignals(_m: Message[]) {
     return signals;
   }
-  async extractClaims() {
+  async extractClaims(_m: Message[]) {
     return claims;
   }
-  async resolveEntities() {
+  async resolveEntities(_s: unknown[], _p: unknown[]) {
     return [];
   }
-  async generateOpportunity() {
+  async generateOpportunity(_p: unknown, _c: unknown[]) {
     return opportunities;
   }
-  async generateValidationQuestions() {
+  async generateValidationQuestions(_o: Opportunity) {
     return [
       "Is the problem top-three urgent?",
       "Who owns a pilot?",
       "What evidence would invalidate this hypothesis?",
     ];
   }
-  async generateExperiment(o: Opportunity) {
+  async generateExperiment(o: Opportunity, _a: unknown[]) {
     return {
       opportunityId: o.id,
       method: "Five interviews followed by a limited concierge pilot",
