@@ -7,7 +7,7 @@ assets = { directory = "./dist", binding = "ASSETS" }
 [[d1_databases]]
 binding = "DB"
 database_name = "unseen-demo"
-database_id = "REPLACE_IN_CLOUDFLARE_DASHBOARD"
+database_id = "f2c76797-017e-41cc-9e27-3987a3e4eb3e"
 
 [ai]
 binding = "AI"
