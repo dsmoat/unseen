@@ -12,10 +12,6 @@ database_id = "f2c76797-017e-41cc-9e27-3987a3e4eb3e"
 [ai]
 binding = "AI"
 
-[[vectorize]]
-binding = "VECTOR_INDEX"
-index_name = "unseen-signals"
-
 [vars]
 UNSEEN_MODE = "deterministic"
-AI_MODEL = "@cf/meta/llama-3.1-8b-instruct"
+AI_MODEL = "@cf/openai/gpt-oss-120b"
