@@ -19,7 +19,7 @@ export interface IntelligenceService {
   generateExperiment(o: Opportunity, a: unknown[]): Promise<unknown>;
 }
 export class DeterministicService implements IntelligenceService {
-  async extractSignals(_m: Message[]) {
+  async extractSignals(_m: Message[]): Promise<unknown[]> {
     return signals;
   }
   async extractClaims(_m: Message[]) {
@@ -53,7 +53,7 @@ export class WorkersAIService extends DeterministicService {
   ) {
     super();
   }
-  private async structured(prompt: string) {
+  private async structured(prompt: string): Promise<unknown[]> {
     const safe = prompt.slice(0, 24000);
     for (let attempt = 0; attempt < 2; attempt++) {
       try {
@@ -75,7 +75,7 @@ export class WorkersAIService extends DeterministicService {
     }
     throw new Error("AI_OUTPUT_INVALID");
   }
-  async extractSignals(m: Message[]) {
+  async extractSignals(m: Message[]): Promise<unknown[]> {
     return this.structured(
       JSON.stringify(m.map((x) => ({ id: x.id, content: x.content }))),
     );
